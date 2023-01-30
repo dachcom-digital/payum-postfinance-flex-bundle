@@ -1,1 +1,0 @@
-# payum-postfinance-flex-bundle

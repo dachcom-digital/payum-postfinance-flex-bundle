@@ -1,4 +1,4 @@
-postfinance_flex.config.environment: 'Environment'
+postfinance_flex.config.sandbox: 'Sandbox'
 postfinance_flex.config.spaceId: 'Space ID'
 postfinance_flex.config.postFinanceUserId: 'User ID'
 postfinance_flex.config.postFinanceSecret: 'API Token'

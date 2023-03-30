@@ -2,7 +2,6 @@ services:
 
     #
     # Form Types
-    #
 
     PayumPostFinanceFlexBundle\Form\Payment\PostFinanceFlexType:
         tags:
@@ -11,7 +10,6 @@ services:
 
     #
     # Payum Factories
-    #
 
     payum.postfinance_flex_gateway_factory:
         class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
@@ -21,31 +19,11 @@ services:
 
     #
     # Payum Extensions
-    #
 
-    PayumPostFinanceFlexBundle\Extension\ConvertPaymentPageExtension:
+    PayumPostFinanceFlexBundle\Extension\ConvertPaymentExtension:
         autowire: true
         public: true
         arguments:
             - '@coreshop.repository.payment'
         tags:
-            - { name: payum.extension, alias: postfinance_flex_data_extension, factory: postfinance_flex, gateway: postfinance_flex, prepend: false }
-
-    #
-    # Controller
-    #
-
-    PayumPostFinanceFlexBundle\Controller\:
-        resource: '../../Controller'
-        tags: [ 'controller.service_arguments' ]
-        public: true
-
-
-    Payum\Bundle\PayumBundle\Controller\NotifyController:
-        class: PayumPostFinanceFlexBundle\Controller\NotifyController
-        arguments:
-            - '@payum'
-        public: true
-        calls:
-            - [setContainer, [ '@service_container' ]]
-        tags: [ 'container.service_arguments' ]
+            - { name: payum.extension, alias: postfinance_flex_coreshop_convert_payment, factory: postfinance_flex, prepend: false }

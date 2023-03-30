@@ -1,34 +1,35 @@
 {
-  "name": "dachcom-digital/payum-postfinance-flex-bundle",
-  "type": "pimcore-bundle",
-  "require": {
-    "payum/core": "^1.6",
-    "postfinancecheckout/sdk": "^3.1"
-  },
-  "keywords": [
-    "payment",
-    "postfinance",
-    "ecommerce"
-  ],
-  "license": "GPL-3.0-or-later",
-  "autoload": {
-    "psr-4": {
-      "PayumPostFinanceFlexBundle\\": "src/PayumPostFinanceFlexBundle"
+    "name": "dachcom-digital/payum-postfinance-flex-bundle",
+    "type": "pimcore-bundle",
+    "require": {
+        "payum/core": "^1.6",
+        "dachcom-digital/payum-postfinance-flex": "@dev",
+        "postfinancecheckout/sdk": "^3.1"
+    },
+    "keywords": [
+        "payment",
+        "postfinance",
+        "ecommerce"
+    ],
+    "license": "GPL-3.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "PayumPostFinanceFlexBundle\\": "src/PayumPostFinanceFlexBundle"
+        }
+    },
+    "authors": [
+        {
+            "name": "DACHCOM DIGITAL Robert Kaczmarczyk",
+            "email": "rkaczmarczyk@dachcom.ch",
+            "homepage": "http://www.dachcom.com",
+            "role": "Developer"
+        }
+    ],
+    "extra": {
+        "pimcore": {
+            "bundles": [
+                "PayumPostFinanceFlexBundle\\PayumPostFinanceFlexBundle"
+            ]
+        }
     }
-  },
-  "authors": [
-    {
-      "name": "DACHCOM DIGITAL Robert Kaczmarczyk",
-      "email": "rkaczmarczyk@dachcom.ch",
-      "homepage": "http://www.dachcom.com",
-      "role": "Developer"
-    }
-  ],
-  "extra": {
-    "pimcore": {
-      "bundles": [
-        "PayumPostFinanceFlexBundle\\PayumPostFinanceFlexBundle"
-      ]
-    }
-  }
 }

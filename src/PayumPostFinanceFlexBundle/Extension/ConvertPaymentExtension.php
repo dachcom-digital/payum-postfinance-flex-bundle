@@ -3,15 +3,14 @@
 namespace PayumPostFinanceFlexBundle\Extension;
 
 use CoreShop\Bundle\PaymentBundle\Doctrine\ORM\PaymentRepository;
-use Payum\Core\Bridge\Spl\ArrayObject;
+use CoreShop\Component\Core\Model\OrderInterface;
+use DachcomDigital\Payum\PostFinance\Flex\Request\Api\TransactionExtender;
 use Payum\Core\Extension\Context;
 use Payum\Core\Extension\ExtensionInterface;
 use Payum\Core\Model\Payment;
-use Payum\Core\Request\Convert;
 
-class ConvertPaymentPageExtension implements ExtensionInterface
+class ConvertPaymentExtension implements ExtensionInterface
 {
-
     public function __construct(
         protected PaymentRepository $paymentRepository
     ) {
@@ -31,20 +30,20 @@ class ConvertPaymentPageExtension implements ExtensionInterface
     public function onPostExecute(Context $context)
     {
         $action = $context->getAction();
+        $request = $context->getRequest();
 
         $previousActionClassName = is_object($action) ? get_class($action) : false;
-        if (false === stripos($previousActionClassName, 'ConvertPaymentPageAction')) {
+
+        if (false === stripos($previousActionClassName, 'TransactionExtender')) {
             return;
         }
 
-        /** @var Convert $request */
-        $request = $context->getRequest();
-        if (false === $request instanceof Convert) {
+        if (!$request instanceof TransactionExtender) {
             return;
         }
 
         /** @var Payment $payment */
-        $payment = $request->getSource();
+        $payment = $request->getFirstModel();
 
         $paymentEntity = $this->paymentRepository->createQueryBuilder('p')
             ->where('p.number = :orderNumber')
@@ -55,8 +54,15 @@ class ConvertPaymentPageExtension implements ExtensionInterface
         if (!$paymentEntity instanceof \Coreshop\Component\Core\Model\Payment) {
             return;
         }
+
         $order = $paymentEntity->getOrder();
+        if (!$order instanceof OrderInterface) {
+            return;
+        }
+
         $gatewayLanguage = 'en_EN';
+
+        $transaction = $request->getTransaction();
 
         if (!empty($order->getLocaleCode())) {
             $orderLanguage = $order->getLocaleCode();
@@ -68,10 +74,8 @@ class ConvertPaymentPageExtension implements ExtensionInterface
             }
         }
 
-        $result = ArrayObject::ensureArrayObject($request->getResult() ?? []);
+        $transaction->setLanguage($gatewayLanguage);
 
-        $result['LANGUAGE'] = $gatewayLanguage;
-
-        $request->setResult($result->toUnsafeArray());
+        $request->setTransaction($transaction);
     }
 }

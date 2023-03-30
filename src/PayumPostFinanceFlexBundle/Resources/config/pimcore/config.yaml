@@ -2,8 +2,3 @@ core_shop_payment:
     pimcore_admin:
         js:
             postfinance_flex: /bundles/payumpostfinanceflex/pimcore/js/postfinance_flex.js
-
-#payum:
-#    gateways:
-#        postfinance_flex:
-#            factory: postfinance_flex

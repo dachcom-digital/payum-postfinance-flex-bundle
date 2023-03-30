@@ -3,48 +3,35 @@ coreshop.provider.gateways.postfinance_flex = Class.create(coreshop.provider.gat
 
     getLayout: function (config) {
 
-        var storeEnvironments = new Ext.data.ArrayStore({
-            fields: ['environment', 'environmentName'],
-            data: [
-                ['test', 'Test'],
-                ['production', 'Production']
-            ]
-        });
-
         return [
             {
-                xtype: 'combobox',
-                fieldLabel: t('postfinance.config.environment'),
-                name: 'gatewayConfig.config.environment',
-                value: config.environment ? config.environment : '',
-                store: storeEnvironments,
-                triggerAction: 'all',
-                valueField: 'environment',
-                displayField: 'environmentName',
-                mode: 'local',
-                forceSelection: true,
-                selectOnFocus: true
+                xtype: 'checkbox',
+                fieldLabel: t('postfinance.config.sandbox'),
+                name: 'gatewayConfig.config.sandbox',
+                value: config.sandbox ? config.sandbox : false,
+                inputValue: true,
+                uncheckedValue: false,
             },
             {
                 xtype: 'textfield',
                 fieldLabel: t('postfinance_flex.config.spaceId'),
                 name: 'gatewayConfig.config.spaceId',
                 length: 255,
-                value: config.spaceId ? config.spaceId : ""
+                value: config.spaceId ? config.spaceId : ''
             },
             {
                 xtype: 'textfield',
                 fieldLabel: t('postfinance_flex.config.postFinanceUserId'),
                 name: 'gatewayConfig.config.postFinanceUserId',
                 length: 255,
-                value: config.postFinanceUserId ? config.postFinanceUserId : ""
+                value: config.postFinanceUserId ? config.postFinanceUserId : ''
             },
             {
                 xtype: 'textfield',
                 fieldLabel: t('postfinance_flex.config.postFinanceSecret'),
                 name: 'gatewayConfig.config.postFinanceSecret',
                 length: 255,
-                value: config.postFinanceSecret ? config.postFinanceSecret : ""
+                value: config.postFinanceSecret ? config.postFinanceSecret : ''
             },
         ];
     }

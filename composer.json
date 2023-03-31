@@ -3,7 +3,7 @@
     "type": "pimcore-bundle",
     "require": {
         "payum/core": "^1.6",
-        "dachcom-digital/payum-postfinance-flex": "1.0",
+        "dachcom-digital/payum-postfinance-flex": "^1.0",
         "postfinancecheckout/sdk": "^3.1"
     },
     "keywords": [

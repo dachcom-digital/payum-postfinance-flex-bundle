@@ -1,5 +1,5 @@
-# CoreShop PostFinfance FLex Payum Connector
-This Bundle activates the Postfinance Flex PaymentGateway in CoreShop.
+# CoreShop PostFinance Flex Payum Connector
+This Bundle activates the [Postfinance Flex](https://checkout.postfinance.ch) PaymentGateway in CoreShop.
 It requires the [dachcom-digital/payum-postfinance-flex](https://github.com/dachcom-digital/payum-postfinance-flex) repository which will be installed automatically.
 
 ## Requirements

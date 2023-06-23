@@ -4,6 +4,7 @@ namespace PayumPostFinanceFlexBundle\Form\Payment;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -40,6 +41,11 @@ final class PostFinanceFlexType extends AbstractType
                         'groups' => 'coreshop',
                     ]),
                 ]
+            ])
+            ->add('optionalParameters', CollectionType::class, [
+                'allow_add'    => true,
+                'allow_delete' => true,
+                'required'     => false
             ]);
 
     }

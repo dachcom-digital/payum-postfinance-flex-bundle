@@ -4,6 +4,7 @@ namespace PayumPostFinanceFlexBundle\Extension;
 
 use CoreShop\Bundle\PaymentBundle\Doctrine\ORM\PaymentRepository;
 use CoreShop\Component\Core\Model\OrderInterface;
+use CoreShop\Component\Core\Model\PaymentProviderInterface;
 use DachcomDigital\Payum\PostFinance\Flex\Request\Api\TransactionExtender;
 use Payum\Core\Extension\Context;
 use Payum\Core\Extension\ExtensionInterface;
@@ -75,6 +76,19 @@ class ConvertPaymentExtension implements ExtensionInterface
         }
 
         $transaction->setLanguage($gatewayLanguage);
+
+        /** @var PaymentProviderInterface $paymentProvider */
+        $paymentProvider = $paymentEntity->getPaymentProvider();
+        $gatewayConfig = $paymentProvider->getGatewayConfig()->getConfig();
+
+        $optionalParameters = [];
+        if (is_array($gatewayConfig) && array_key_exists('optionalParameters', $gatewayConfig)) {
+            $optionalParameters = $gatewayConfig['optionalParameters'];
+        }
+
+        if (array_key_exists('allowedPaymentMethodBrands', $optionalParameters) && !empty($optionalParameters['allowedPaymentMethodBrands'])) {
+            $transaction->setAllowedPaymentMethodBrands(explode(',', $optionalParameters['allowedPaymentMethodBrands']));
+        }
 
         $request->setTransaction($transaction);
     }

@@ -15,11 +15,7 @@ final class PostFinanceFlexType extends AbstractType
     {
         $builder
             ->add('sandbox', CheckboxType::class, [
-                'constraints' => [
-                    new NotBlank([
-                        'groups' => 'coreshop',
-                    ]),
-                ],
+                'constraints' => [],
             ])
             ->add('spaceId', TextType::class, [
                 'constraints' => [

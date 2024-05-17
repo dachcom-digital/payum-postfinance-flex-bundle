@@ -64,7 +64,8 @@ coreshop.provider.gateways.postfinance_flex = Class.create(coreshop.provider.gat
                     fields: ['integrationType', 'integrationTypeName'],
                     data: [
                         ['paymentPage', t('postfinance_flex.config.integrationType.paymentPage')],
-                        ['lightbox', t('postfinance_flex.config.integrationType.lightbox')]
+                        ['lightbox', t('postfinance_flex.config.integrationType.lightbox')],
+                        ['iframe', t('postfinance_flex.config.integrationType.iframe')]
                     ]
                 })
             },

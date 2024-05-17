@@ -7,3 +7,4 @@ postfinance_flex.config.optionalParameter.allowedPaymentMethodBrands: 'Allowed P
 postfinance_flex.config.integrationType: 'Integration Type'
 postfinance_flex.config.integrationType.paymentPage: 'PaymentPage'
 postfinance_flex.config.integrationType.lightbox: 'Lightbox'
+postfinance_flex.config.integrationType.iframe: 'Iframe'

@@ -21,7 +21,8 @@ final class PostFinanceFlexType extends AbstractType
             ->add('integrationType', ChoiceType::class, [
                 'choices'     => [
                     'paymentPage' => 'paymentPage',
-                    'lightbox'    => 'lightbox'
+                    'lightbox'    => 'lightbox',
+                    'iframe'      => 'iframe'
                 ],
                 'constraints' => [],
             ])

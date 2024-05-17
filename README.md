@@ -7,19 +7,25 @@ CoreShop >= 3.0
 
 ## Installation
 
-#### 1. Composer
 ```json
-    "dachcom-digital/payum-postfinance-flex-bundle": "~1.0.0"
+    "dachcom-digital/payum-postfinance-flex-bundle": "~1.1.0"
 ```
 
-#### 2. Activate
-Enable the Bundle in Pimcore Extension Manager
+Add Bundle to `bundles.php`:
+```php
+return [
+    # add to bottom
+    PayumPostFinanceFlexBundle\PayumPostFinanceFlexBundle::class => ['all' => true],
+];
+```
 
 #### 3. Setup
 Go to CoreShop -> PaymentProvider and add a new Provider. Choose `postfinance_flex` from `type` and fill out the required fields.
 
 ## Changelog
---
+
+### 1.1.0
+- add integration type config
 
 ## Copyright and License
 Copyright: [DACHCOM.DIGITAL](https://www.dachcom-digital.ch)

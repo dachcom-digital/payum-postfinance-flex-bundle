@@ -43,11 +43,31 @@ coreshop.provider.gateways.postfinance_flex = Class.create(coreshop.provider.gat
         return [
             {
                 xtype: 'checkbox',
-                fieldLabel: t('postfinance.config.sandbox'),
+                fieldLabel: t('postfinance_flex.config.sandbox'),
                 name: 'gatewayConfig.config.sandbox',
                 value: config.sandbox ? config.sandbox : false,
                 inputValue: true,
                 uncheckedValue: false,
+            },
+            {
+                xtype: 'combobox',
+                fieldLabel: t('postfinance_flex.config.integrationType'),
+                name: 'gatewayConfig.config.integrationType',
+                value: config.integrationType ? config.integrationType : 'paymentPage',
+                triggerAction: 'all',
+                valueField: 'integrationType',
+                displayField: 'integrationTypeName',
+                mode: 'local',
+                forceSelection: true,
+                selectOnFocus: true,
+                store: new Ext.data.ArrayStore({
+                    fields: ['integrationType', 'integrationTypeName'],
+                    data: [
+                        ['paymentPage', t('postfinance_flex.config.integrationType.paymentPage')],
+                        ['lightbox', t('postfinance_flex.config.integrationType.lightbox')],
+                        ['iframe', t('postfinance_flex.config.integrationType.iframe')]
+                    ]
+                })
             },
             {
                 xtype: 'textfield',

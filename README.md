@@ -26,6 +26,7 @@ Go to CoreShop -> PaymentProvider and add a new Provider. Choose `postfinance_fl
 
 ### 1.1.0
 - add integration type config
+- add `allowedPaymentMethodConfigurations` option
 
 ## Copyright and License
 Copyright: [DACHCOM.DIGITAL](https://www.dachcom-digital.ch)

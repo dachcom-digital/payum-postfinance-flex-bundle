@@ -90,6 +90,10 @@ class ConvertPaymentExtension implements ExtensionInterface
             $transaction->setAllowedPaymentMethodBrands(explode(',', $optionalParameters['allowedPaymentMethodBrands']));
         }
 
+        if (array_key_exists('allowedPaymentMethodConfigurations', $optionalParameters) && !empty($optionalParameters['allowedPaymentMethodConfigurations'])) {
+            $transaction->setAllowedPaymentMethodConfigurations(explode(',', $optionalParameters['allowedPaymentMethodConfigurations']));
+        }
+
         $request->setTransaction($transaction);
     }
 }

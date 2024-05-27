@@ -10,6 +10,11 @@ coreshop.provider.gateways.postfinance_flex = Class.create(coreshop.provider.gat
                     defaultValue: '',
                     description: 'https://checkout.postfinance.ch/doc/api/payment-method-brand/list (Add more by using ",")'
                 },
+                {
+                    name: 'allowedPaymentMethodConfigurations',
+                    defaultValue: '',
+                    description: 'https://checkout.postfinance.ch/doc/api/payment-method/list (Add more by using ",")'
+                },
             ];
 
         Ext.Array.each(optionalPresets, function (preset) {

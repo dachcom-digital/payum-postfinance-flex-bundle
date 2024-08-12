@@ -24,6 +24,7 @@ services:
         autowire: true
         public: true
         arguments:
+            - '@translator'
             - '@coreshop.repository.payment'
         tags:
             - { name: payum.extension, alias: postfinance_flex_coreshop_convert_payment, factory: postfinance_flex, prepend: false }

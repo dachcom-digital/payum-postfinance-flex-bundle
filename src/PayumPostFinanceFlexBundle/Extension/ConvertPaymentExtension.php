@@ -5,14 +5,17 @@ namespace PayumPostFinanceFlexBundle\Extension;
 use CoreShop\Bundle\PaymentBundle\Doctrine\ORM\PaymentRepository;
 use CoreShop\Component\Core\Model\OrderInterface;
 use CoreShop\Component\Core\Model\PaymentProviderInterface;
+use CoreShop\Component\Taxation\Model\TaxItemInterface;
 use DachcomDigital\Payum\PostFinance\Flex\Request\Api\TransactionExtender;
 use Payum\Core\Extension\Context;
 use Payum\Core\Extension\ExtensionInterface;
 use Payum\Core\Model\Payment;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ConvertPaymentExtension implements ExtensionInterface
 {
     public function __construct(
+        protected TranslatorInterface $translator,
         protected PaymentRepository $paymentRepository
     ) {
 
@@ -92,6 +95,28 @@ class ConvertPaymentExtension implements ExtensionInterface
 
         if (array_key_exists('allowedPaymentMethodConfigurations', $optionalParameters) && !empty($optionalParameters['allowedPaymentMethodConfigurations'])) {
             $transaction->setAllowedPaymentMethodConfigurations(explode(',', $optionalParameters['allowedPaymentMethodConfigurations']));
+        }
+
+        $taxes = [];
+        foreach ($order->getTaxes() as $tax) {
+
+            if (!$tax instanceof TaxItemInterface) {
+                continue;
+            }
+
+            $taxes[] = [
+                'rate'  => $tax->getRate(),
+                'title' => $this->translator->trans(
+                    sprintf('coreshop.payum.postfinance.line_item.tax_title_%s', str_replace('.', '_', $tax->getRate())),
+                    [],
+                    'admin',
+                    $order->getLocaleCode()
+                )
+            ];
+        }
+
+        if (count($taxes) > 0) {
+            $transaction->setTotalTaxes($taxes);
         }
 
         $request->setTransaction($transaction);

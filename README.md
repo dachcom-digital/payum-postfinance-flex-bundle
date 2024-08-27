@@ -24,6 +24,9 @@ Go to CoreShop -> PaymentProvider and add a new Provider. Choose `postfinance_fl
 
 ## Changelog
 
+### 1.2.1
+- Fix tax translation label
+
 ### 1.2.0
 - Dependency `dachcom-digital/payum-postfinance-flex` requirement set to `^1.2`
 - Unnecessary dependency `postfinancecheckout/sdk` removed

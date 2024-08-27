@@ -104,14 +104,16 @@ class ConvertPaymentExtension implements ExtensionInterface
                 continue;
             }
 
+            $taxTranslationKey = sprintf('coreshop.payum.postfinance.line_item.tax_title_%s', str_replace('.', '_', $tax->getRate()));
+            $taxLabel = $this->translator->trans($taxTranslationKey, [], 'messages', $order->getLocaleCode());
+
+            if (strlen($taxLabel) < 2 || strlen($taxLabel) > 40) {
+                $taxLabel = 'Taxes';
+            }
+
             $taxes[] = [
                 'rate'  => $tax->getRate(),
-                'title' => $this->translator->trans(
-                    sprintf('coreshop.payum.postfinance.line_item.tax_title_%s', str_replace('.', '_', $tax->getRate())),
-                    [],
-                    'admin',
-                    $order->getLocaleCode()
-                )
+                'title' => $taxLabel
             ];
         }
 

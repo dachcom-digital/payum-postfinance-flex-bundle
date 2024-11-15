@@ -42,6 +42,9 @@ Go to CoreShop -> PaymentProvider and add a new Provider. Choose `postfinance_fl
 ### 1.0.1
 - add `setAllowedPaymentMethodBrands` option
 
-## Copyright and License
-Copyright: [DACHCOM.DIGITAL](https://www.dachcom-digital.ch)
-For licensing details please visit [LICENSE.md](LICENSE.md)
+## License
+**DACHCOM.DIGITAL AG**, Löwenhofstrasse 15, 9424 Rheineck, Schweiz  
+[dachcom.com](https://www.dachcom.com), dcdi@dachcom.ch  
+Copyright © 2024 DACHCOM.DIGITAL. All rights reserved.  
+
+For licensing details please visit [LICENSE.md](LICENSE.md)  

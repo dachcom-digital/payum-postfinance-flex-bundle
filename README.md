@@ -25,7 +25,12 @@ return [
 #### 3. Setup
 Go to CoreShop -> PaymentProvider and add a new Provider. Choose `postfinance_flex` from `type` and fill out the required fields.
 
+***
+
 ## Changelog
+
+### 1.3.0
+- [LICENSE] Dual-License with GPL and Dachcom Commercial License (DCL) added
 
 ### 1.2.1
 - Fix tax translation label

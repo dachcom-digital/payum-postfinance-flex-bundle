@@ -1,29 +1,35 @@
 {
     "name": "dachcom-digital/payum-postfinance-flex-bundle",
     "type": "pimcore-bundle",
-    "require": {
-        "payum/core": "^1.6",
-        "dachcom-digital/payum-postfinance-flex": "^1.2"
-    },
+    "license": [
+        "GPL-3.0-or-later",
+        "proprietary"
+    ],
     "keywords": [
         "payment",
         "postfinance",
         "ecommerce"
     ],
-    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "DACHCOM DIGITAL Robert Kaczmarczyk",
+            "email": "rkaczmarczyk@dachcom.ch",
+            "homepage": "https://www.dachcom.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "payum/core": "^1.6",
+        "dachcom-digital/payum-postfinance-flex": "^1.2"
+    },
+    "require-dev": {
+        "symplify/easy-coding-standard": "~12.2.0"
+    },
     "autoload": {
         "psr-4": {
             "PayumPostFinanceFlexBundle\\": "src/PayumPostFinanceFlexBundle"
         }
     },
-    "authors": [
-        {
-            "name": "DACHCOM DIGITAL Robert Kaczmarczyk",
-            "email": "rkaczmarczyk@dachcom.ch",
-            "homepage": "http://www.dachcom.com",
-            "role": "Developer"
-        }
-    ],
     "extra": {
         "pimcore": {
             "bundles": [

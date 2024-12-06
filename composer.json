@@ -23,6 +23,7 @@
         "dachcom-digital/payum-postfinance-flex": "^1.2"
     },
     "require-dev": {
+        "symfony/http-client": "^6.4",
         "symplify/easy-coding-standard": "~12.2.0"
     },
     "autoload": {

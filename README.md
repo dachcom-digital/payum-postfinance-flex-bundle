@@ -1,4 +1,7 @@
 # CoreShop PostFinance Flex Payum Connector
+[![Software License](https://img.shields.io/badge/license-GPLv3-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Software License](https://img.shields.io/badge/license-DCL-white.svg?style=flat-square&color=%23ff5c5c)](LICENSE.md)
+
 This Bundle activates the [Postfinance Flex](https://checkout.postfinance.ch) PaymentGateway in CoreShop.
 It requires the [dachcom-digital/payum-postfinance-flex](https://github.com/dachcom-digital/payum-postfinance-flex) repository which will be installed automatically.
 
@@ -8,7 +11,7 @@ CoreShop >= 3.0
 ## Installation
 
 ```json
-    "dachcom-digital/payum-postfinance-flex-bundle": "~1.2.0"
+    "dachcom-digital/payum-postfinance-flex-bundle": "~1.3.0"
 ```
 
 Add Bundle to `bundles.php`:
@@ -41,6 +44,8 @@ Go to CoreShop -> PaymentProvider and add a new Provider. Choose `postfinance_fl
 
 ### 1.0.1
 - add `setAllowedPaymentMethodBrands` option
+
+***
 
 ## License
 **DACHCOM.DIGITAL AG**, Löwenhofstrasse 15, 9424 Rheineck, Schweiz  

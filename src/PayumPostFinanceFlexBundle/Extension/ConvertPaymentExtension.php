@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This source file is available under two different licenses:
+ *   - GNU General Public License version 3 (GPLv3)
+ *   - DACHCOM Commercial License (DCL)
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ * @copyright  Copyright (c) DACHCOM.DIGITAL AG (https://www.dachcom-digital.com)
+ * @license    GPLv3 and DCL
+ */
+
 namespace PayumPostFinanceFlexBundle\Extension;
 
 use CoreShop\Bundle\PaymentBundle\Doctrine\ORM\PaymentRepository;
@@ -18,17 +29,14 @@ class ConvertPaymentExtension implements ExtensionInterface
         protected TranslatorInterface $translator,
         protected PaymentRepository $paymentRepository
     ) {
-
     }
 
     public function onPreExecute(Context $context)
     {
-
     }
 
     public function onExecute(Context $context)
     {
-
     }
 
     public function onPostExecute(Context $context)
@@ -99,7 +107,6 @@ class ConvertPaymentExtension implements ExtensionInterface
 
         $taxes = [];
         foreach ($order->getTaxes() as $tax) {
-
             if (!$tax instanceof TaxItemInterface) {
                 continue;
             }

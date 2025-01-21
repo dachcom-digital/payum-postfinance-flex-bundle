@@ -18,6 +18,7 @@ use CoreShop\Component\Core\Model\OrderInterface;
 use CoreShop\Component\Core\Model\PaymentProviderInterface;
 use CoreShop\Component\Taxation\Model\TaxItemInterface;
 use DachcomDigital\Payum\PostFinance\Flex\Request\Api\TransactionExtender;
+use DachcomDigital\Payum\PostFinance\Flex\Transaction\Transaction;
 use Payum\Core\Extension\Context;
 use Payum\Core\Extension\ExtensionInterface;
 use Payum\Core\Model\Payment;
@@ -54,27 +55,28 @@ class ConvertPaymentExtension implements ExtensionInterface
             return;
         }
 
-        /** @var Payment $payment */
-        $payment = $request->getFirstModel();
-
-        $paymentEntity = $this->paymentRepository->createQueryBuilder('p')
-            ->where('p.number = :orderNumber')
-            ->setParameter('orderNumber', $payment->getNumber())
-            ->getQuery()
-            ->getSingleResult();
-
-        if (!$paymentEntity instanceof \Coreshop\Component\Core\Model\Payment) {
+        $payment = $this->getPayment($request);
+        if (!$payment instanceof \Coreshop\Component\Core\Model\Payment) {
             return;
         }
 
-        $order = $paymentEntity->getOrder();
+        $order = $this->getOrder($payment);
         if (!$order instanceof OrderInterface) {
             return;
         }
 
-        $gatewayLanguage = 'en_EN';
-
         $transaction = $request->getTransaction();
+
+        $this->addLocaleToTransaction($order, $transaction);
+        $this->addTaxesToTransaction($order, $transaction);
+        $this->addPaymentConfigurationToTransaction($payment, $transaction);
+
+        $request->setTransaction($transaction);
+    }
+
+    private function addLocaleToTransaction(OrderInterface $order, Transaction $transaction): void
+    {
+        $gatewayLanguage = 'en_EN';
 
         if (!empty($order->getLocaleCode())) {
             $orderLanguage = $order->getLocaleCode();
@@ -87,24 +89,10 @@ class ConvertPaymentExtension implements ExtensionInterface
         }
 
         $transaction->setLanguage($gatewayLanguage);
+    }
 
-        /** @var PaymentProviderInterface $paymentProvider */
-        $paymentProvider = $paymentEntity->getPaymentProvider();
-        $gatewayConfig = $paymentProvider->getGatewayConfig()->getConfig();
-
-        $optionalParameters = [];
-        if (is_array($gatewayConfig) && array_key_exists('optionalParameters', $gatewayConfig)) {
-            $optionalParameters = $gatewayConfig['optionalParameters'];
-        }
-
-        if (array_key_exists('allowedPaymentMethodBrands', $optionalParameters) && !empty($optionalParameters['allowedPaymentMethodBrands'])) {
-            $transaction->setAllowedPaymentMethodBrands(explode(',', $optionalParameters['allowedPaymentMethodBrands']));
-        }
-
-        if (array_key_exists('allowedPaymentMethodConfigurations', $optionalParameters) && !empty($optionalParameters['allowedPaymentMethodConfigurations'])) {
-            $transaction->setAllowedPaymentMethodConfigurations(explode(',', $optionalParameters['allowedPaymentMethodConfigurations']));
-        }
-
+    private function addTaxesToTransaction(OrderInterface $order, Transaction $transaction): void
+    {
         $taxes = [];
         foreach ($order->getTaxes() as $tax) {
             if (!$tax instanceof TaxItemInterface) {
@@ -127,7 +115,53 @@ class ConvertPaymentExtension implements ExtensionInterface
         if (count($taxes) > 0) {
             $transaction->setTotalTaxes($taxes);
         }
+    }
 
-        $request->setTransaction($transaction);
+    private function addPaymentConfigurationToTransaction(\Coreshop\Component\Core\Model\Payment $payment, Transaction $transaction): void
+    {
+        /** @var PaymentProviderInterface $paymentProvider */
+        $paymentProvider = $payment->getPaymentProvider();
+        $gatewayConfig = $paymentProvider->getGatewayConfig()->getConfig();
+
+        $optionalParameters = [];
+        if (is_array($gatewayConfig) && array_key_exists('optionalParameters', $gatewayConfig)) {
+            $optionalParameters = $gatewayConfig['optionalParameters'];
+        }
+
+        if (array_key_exists('allowedPaymentMethodBrands', $optionalParameters) && !empty($optionalParameters['allowedPaymentMethodBrands'])) {
+            $transaction->getTransactionCreateObject()->setAllowedPaymentMethodBrands(explode(',', $optionalParameters['allowedPaymentMethodBrands']));
+        }
+
+        if (array_key_exists('allowedPaymentMethodConfigurations', $optionalParameters) && !empty($optionalParameters['allowedPaymentMethodConfigurations'])) {
+            $transaction->getTransactionCreateObject()->setAllowedPaymentMethodConfigurations(explode(',', $optionalParameters['allowedPaymentMethodConfigurations']));
+        }
+    }
+
+    private function getOrder(\Coreshop\Component\Core\Model\Payment $payment): ?OrderInterface
+    {
+        $order = $payment->getOrder();
+        if (!$order instanceof OrderInterface) {
+            return null;
+        }
+
+        return $order;
+    }
+
+    private function getPayment(TransactionExtender $request): ?\Coreshop\Component\Core\Model\Payment
+    {
+        /** @var Payment $payment */
+        $payment = $request->getFirstModel();
+
+        $paymentEntity = $this->paymentRepository->createQueryBuilder('p')
+            ->where('p.number = :orderNumber')
+            ->setParameter('orderNumber', $payment->getNumber())
+            ->getQuery()
+            ->getSingleResult();
+
+        if (!$paymentEntity instanceof \Coreshop\Component\Core\Model\Payment) {
+            return null;
+        }
+
+        return $paymentEntity;
     }
 }

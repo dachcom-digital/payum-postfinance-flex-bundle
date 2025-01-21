@@ -16,11 +16,17 @@
             "email": "rkaczmarczyk@dachcom.ch",
             "homepage": "https://www.dachcom.com",
             "role": "Developer"
+        },
+        {
+            "name": "DACHCOM.DIGITAL Stefan Hagspiel",
+            "email": "shagspiel@dachcom.ch",
+            "homepage": "https://www.dachcom.com",
+            "role": "Developer"
         }
     ],
     "require": {
         "payum/core": "^1.6",
-        "dachcom-digital/payum-postfinance-flex": "^1.2"
+        "dachcom-digital/payum-postfinance-flex": "^2.0"
     },
     "require-dev": {
         "symfony/http-client": "^6.4",

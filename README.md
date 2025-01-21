@@ -11,7 +11,7 @@ CoreShop >= 3.0
 ## Installation
 
 ```json
-    "dachcom-digital/payum-postfinance-flex-bundle": "~1.3.0"
+    "dachcom-digital/payum-postfinance-flex-bundle": "~2.0.0"
 ```
 
 Add Bundle to `bundles.php`:
@@ -28,6 +28,9 @@ Go to CoreShop -> PaymentProvider and add a new Provider. Choose `postfinance_fl
 ***
 
 ## Changelog
+
+### 2.0.0
+- Dependency `dachcom-digital/payum-postfinance-flex` requirement set to `^2.0`
 
 ### 1.3.0
 - [LICENSE] Dual-License with GPL and Dachcom Commercial License (DCL) added
@@ -55,6 +58,6 @@ Go to CoreShop -> PaymentProvider and add a new Provider. Choose `postfinance_fl
 ## License
 **DACHCOM.DIGITAL AG**, Löwenhofstrasse 15, 9424 Rheineck, Schweiz  
 [dachcom.com](https://www.dachcom.com), dcdi@dachcom.ch  
-Copyright © 2024 DACHCOM.DIGITAL. All rights reserved.  
+Copyright © 2025 DACHCOM.DIGITAL. All rights reserved.  
 
 For licensing details please visit [LICENSE.md](LICENSE.md)  
